@@ -49,7 +49,7 @@
             <version>3.4.4</version>
         </dependency>
 
-        <!-- JWT for Authentication (optional but recommended) -->
+        <!-- JWT for Authentication -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>

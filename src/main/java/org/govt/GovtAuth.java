@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/govt/auth")
+@RequestMapping("/auth")
 public class GovtAuth {
     private UserGovtService user;
 
@@ -14,12 +14,12 @@ public class GovtAuth {
         this.user=user;
     }
 
-    @PostMapping("/register")
+    @PostMapping("/register/govt")
     public String register(@RequestParam String name,@RequestParam String username,@RequestParam String password,@RequestParam int age, @RequestParam String email,@RequestParam String govt_Id,@RequestParam String govt_department){
         return user.registerGovt(name,username,password,age,email,govt_Id,govt_department);
     }
 
-    @PostMapping("/login")
+    @PostMapping("/login/govt")
     public String login(@RequestParam String username,@RequestParam String password){
         if(user.authenticateGovt(username,password)){
             return "LoggedIn Successfully!!!";

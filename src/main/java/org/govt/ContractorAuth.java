@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/contractor/auth")
+@RequestMapping("/auth")
 public class ContractorAuth {
     private UserContractorService user;
 
@@ -14,12 +14,12 @@ public class ContractorAuth {
         this.user=user;
     }
 
-    @PostMapping("/register")
+    @PostMapping("/register/contractor")
     public String register(@RequestParam String name, @RequestParam String username, @RequestParam String password, @RequestParam int age, @RequestParam int phone, @RequestParam String email, @RequestParam String gst_number, @RequestParam String address){
         return user.registerContractor(name,username,password,age,phone,email,gst_number,address);
     }
 
-    @PostMapping("/login")
+    @PostMapping("/login/contractor")
     public String login(@RequestParam String username,@RequestParam String password){
         if(user.authenticateContractor(username,password)){
             return "LoggedIn Successfully!!!";
