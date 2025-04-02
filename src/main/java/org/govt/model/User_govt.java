@@ -1,4 +1,4 @@
-package org.govt;
+package org.govt.model;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -33,7 +33,4 @@ public class User_govt {
         this.approved=false;
     }
 
-    public String getPassword(){
-        return password;
-    }
 }

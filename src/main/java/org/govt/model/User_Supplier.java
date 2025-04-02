@@ -1,14 +1,14 @@
-package org.govt;
+package org.govt.model;
 
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "contractor")
+@Document(collection = "supplier")
 @Getter
 @Setter
-public class User_contractor {
+public class User_Supplier {
     @Id
     private String id;
 
@@ -16,13 +16,13 @@ public class User_contractor {
     private String password;
     private String username;
     private int age;
-    private int phone;
+    private long phone;
     private String email;
     private String gst_number;
     private String address;
     private boolean approved;
 
-    public User_contractor(String name,String username, String password,int age,int phone,String email,String gst_number,String address){
+    public User_Supplier(String name, String username, String password, int age, long phone, String email, String gst_number, String address){
         this.name=name;
         this.username=username;
         this.password=password;
@@ -34,7 +34,4 @@ public class User_contractor {
         this.approved=false;
     }
 
-    public String getPassword() {
-        return password;
-    }
 }
