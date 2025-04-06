@@ -5,31 +5,32 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document (collection = "govt_officers")
+@Document(collection = "supplier")
 @Getter
 @Setter
-public class User_govt {
+public class User_Supplier {
     @Id
     private String id;
 
     private String name;
     private String password;
     private String username;
-    private int age;
+    private String DOB;
+    private long phone;
     private String email;
-    private String govt_Id;
-    private String govt_department;
+    private String gst_number;
+    private String address;
     private boolean approved;
 
-
-    public User_govt(String name,String username, String password,int age,String email,String govt_Id,String govt_department){
+    public User_Supplier(String name, String username, String password, String DOB, long phone, String email, String gst_number, String address){
         this.name=name;
         this.username=username;
         this.password=password;
-        this.age=age;
+        this.DOB=DOB;
+        this.phone=phone;
         this.email=email;
-        this.govt_Id=govt_Id;
-        this.govt_department=govt_department;
+        this.gst_number=gst_number;
+        this.address=address;
         this.approved=false;
     }
 

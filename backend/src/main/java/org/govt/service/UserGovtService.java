@@ -22,11 +22,11 @@ public class UserGovtService {
         this.password=new BCryptPasswordEncoder();
     }
 
-    public Register registerGovt(String name, String username, String password1, int age, String email, String govt_Id, String govt_department){
+    public Register registerGovt(String name, String username, String password1, String DOB, String email, String govt_Id, String govt_department){
         if(user.findByUsername(username)!=null){
             return new Register("User Already Exists!!!!","");
         }
-        User_govt userGovt=new User_govt(name,username,password1,age,email,govt_Id,govt_department);
+        User_govt userGovt=new User_govt(name,username,password1,DOB,email,govt_Id,govt_department);
         String hash=password.encode(password1);
         userGovt.setPassword(hash);
         user.save(userGovt);
