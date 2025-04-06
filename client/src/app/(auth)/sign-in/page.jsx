@@ -14,11 +14,11 @@ export default function HomePage() {
   const [userInitials, setUserInitials] = useState("");
   const [loading, setLoading] = useState(true);
   
-  // Check authentication status when component mounts
+  // Check authentication status when component mounts 
   useEffect(() => {
     setMounted(true);
     
-    // Function to check user authentication status
+    // Function to check user authentication status 
     const checkAuthStatus = async () => {
     
     };
