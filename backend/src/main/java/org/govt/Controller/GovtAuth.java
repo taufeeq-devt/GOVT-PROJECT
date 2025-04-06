@@ -23,7 +23,7 @@ public class GovtAuth {
 
     @PostMapping("/register/govt")
     public Register register(@RequestBody User_govt user1){
-        return user.registerGovt(user1.getName(),user1.getUsername(),user1.getPassword(),user1.getDOB(),user1.getEmail(),user1.getGovt_Id(),user1.getGovt_department());
+        return user.registerGovt(user1.getName(),user1.getUsername(),user1.getPassword(),user1.getDOB(),user1.getEmail(),user1.getGovt_Id(),user1.getGovt_department(),user1.getPincode());
     }
 
     @PostMapping("/login/govt")

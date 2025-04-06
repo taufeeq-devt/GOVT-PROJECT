@@ -19,10 +19,11 @@ public class User_govt {
     private String email;
     private String govt_Id;
     private String govt_department;
+    private String pincode;
     private boolean approved;
 
 
-    public User_govt(String name,String username, String password,String DOB,String email,String govt_Id,String govt_department){
+    public User_govt(String name,String username, String password,String DOB,String email,String govt_Id,String govt_department,String pincode){
         this.name=name;
         this.username=username;
         this.password=password;
@@ -30,7 +31,7 @@ public class User_govt {
         this.email=email;
         this.govt_Id=govt_Id;
         this.govt_department=govt_department;
+        this.pincode=pincode;
         this.approved=false;
     }
-
 }

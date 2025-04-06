@@ -21,8 +21,9 @@ public class User_contractor {
     private String gst_number;
     private String address;
     private boolean approved;
+    private String pincode;
 
-    public User_contractor(String name,String username, String password,String DOB,long phone,String email,String gst_number,String address){
+    public User_contractor(String name,String username, String password,String DOB,long phone,String email,String gst_number,String address,String pincode){
         this.name=name;
         this.username=username;
         this.password=password;
@@ -31,7 +32,7 @@ public class User_contractor {
         this.email=email;
         this.gst_number=gst_number;
         this.address=address;
+        this.pincode=pincode;
         this.approved=false;
     }
-
 }

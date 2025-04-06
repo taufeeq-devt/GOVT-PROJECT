@@ -20,9 +20,10 @@ public class User_Supplier {
     private String email;
     private String gst_number;
     private String address;
+    private String pincode;
     private boolean approved;
 
-    public User_Supplier(String name, String username, String password, String DOB, long phone, String email, String gst_number, String address){
+    public User_Supplier(String name, String username, String password, String DOB, long phone, String email, String gst_number, String address, String pincode){
         this.name=name;
         this.username=username;
         this.password=password;
@@ -31,7 +32,7 @@ public class User_Supplier {
         this.email=email;
         this.gst_number=gst_number;
         this.address=address;
+        this.pincode=pincode;
         this.approved=false;
     }
-
 }

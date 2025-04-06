@@ -23,7 +23,7 @@ public class ContractorAuth {
 
     @PostMapping("/register/contractor")
     public Register register(@RequestBody User_contractor user1){
-        return user.registerContractor(user1.getName(),user1.getUsername(),user1.getPassword(),user1.getDOB(),user1.getPhone(),user1.getEmail(),user1.getGst_number(),user1.getAddress());
+        return user.registerContractor(user1.getName(),user1.getUsername(),user1.getPassword(),user1.getDOB(),user1.getPhone(),user1.getEmail(),user1.getGst_number(),user1.getAddress(),user1.getPincode());
     }
 
     @PostMapping("/login/contractor")
