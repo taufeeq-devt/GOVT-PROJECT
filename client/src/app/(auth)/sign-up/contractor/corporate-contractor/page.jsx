@@ -1,54 +1,61 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { useRouter } from "next/navigation"; // For redirecting
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { z } from "zod";
+import { useState } from 'react';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { z } from 'zod';
 
 // Define Zod schema for form validation
-const officerSchema = z.object({
-  fullName: z.string().min(1, { message: "Full name is required" }),
+const contractorSchema = z.object({
+  name: z.string().min(1, { message: "Name is required" }),
   age: z.number().min(18, { message: "Must be at least 18 years old" }).max(100, { message: "Invalid age" }),
-  email: z.string().email({ message: "Enter a valid email address" }),
+  mobile: z.string().regex(/^\d{10}$/, { message: "Enter a valid 10-digit mobile number" }),
   username: z.string().min(5, { message: "Username must be at least 5 characters" }),
   password: z.string().min(8, { message: "Password must be at least 8 characters" }),
   confirmPassword: z.string(),
-  employeeId: z.string().regex(/^[A-Z0-9]{6,12}$/, { message: "Enter a valid employee ID (6-12 alphanumeric characters)" }),
-  departmentName: z.string().min(1, { message: "Department name is required" }),
+  email: z.string().email({ message: "Enter a valid email address" }),
+  gstNumber: z.string().regex(/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9A-Z]{1}[Z]{1}[0-9A-Z]{1}$/, { message: "Enter a valid GST number" }),
+  companyAddress: z.string().min(1, { message: "Company address is required" }),
+  companyName: z.string().min(1, { message: "Company name is required" })
 }).refine(data => data.password === data.confirmPassword, {
   message: "Passwords do not match",
-  path: ["confirmPassword"],
+  path: ["confirmPassword"]
 });
 
-export default function GovernmentOfficerSignUp() {
-  const router = useRouter(); 
+export default function CorporateContractorSignup() {
   const [formData, setFormData] = useState({
-    fullName: "",
-    age: "",
-    email: "",
-    username: "",
-    password: "",
-    confirmPassword: "",
-    employeeId: "",
-    departmentName: "",
+    name: '',
+    age: '',
+    mobile: '',
+    username: '',
+    password: '',
+    confirmPassword: '',
+    email: '',
+    gstNumber: '',
+    companyAddress: '',
+    companyName: ''
   });
+  
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === "age" && value !== "" && !/^\d*$/.test(value)) return; 
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
-      [name]: value,
+      [name]: name === 'age' ? value : value
     }));
+    
     if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: "" }));
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
     }
   };
 
@@ -56,9 +63,9 @@ export default function GovernmentOfficerSignUp() {
     try {
       const submissionData = {
         ...formData,
-        age: formData.age === "" ? NaN : parseInt(formData.age), // Handle empty age
+        age: parseInt(formData.age)
       };
-      officerSchema.parse(submissionData);
+      contractorSchema.parse(submissionData);
       setErrors({});
       return true;
     } catch (error) {
@@ -75,43 +82,37 @@ export default function GovernmentOfficerSignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!validateForm()) return;
-
-    setIsSubmitting(true);
-    const toastId = console.loading("Submitting registration request...");
-
-    try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-
-      // Uncomment and adjust this for real API
-      // const response = await fetch('/api/government/register', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(formData),
-      // });
-      // if (!response.ok) throw new Error('Registration failed');
-
-      console.log("Registration request sent successfully!", { id: toastId });
-      // Redirect to a confirmation page or login
-      setTimeout(() => router.push("/sign-in/government"), 1000);
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      console.log("Failed to submit request. Please try again.", { id: toastId });
-    } finally {
-      setIsSubmitting(false);
+    
+    if (validateForm()) {
+      setIsSubmitting(true);
+      
+      try {
+        // Uncommented API call code is currently disabled
+        // const response = await fetch('/api/government/register', {
+        //   method: 'POST',
+        //   headers: { 'Content-Type': 'application/json' },
+        //   body: JSON.stringify(formData),
+        // });
+        // if (!response.ok) throw new Error('Registration failed');
+       
+        alert("Contractor account created successfully!");
+      } catch (error) {
+        console.error("Error submitting form:", error);
+        alert("Failed to create account. Please try again later.");
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
+    visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
   };
 
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 100, damping: 10 } },
+    visible: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 100, damping: 10 } }
   };
 
   const MotionButton = motion.create(Button);
@@ -143,32 +144,39 @@ export default function GovernmentOfficerSignUp() {
 
       {/* Main Content */}
       <main className="flex-grow py-12 px-4 sm:px-6 lg:px-8">
-        <motion.div className="w-full max-w-3xl mx-auto" initial="hidden" animate="visible" variants={containerVariants}>
+        <motion.div
+          className="w-full max-w-3xl mx-auto"
+          initial="hidden"
+          animate="visible"
+          variants={containerVariants}
+        >
           <motion.div variants={itemVariants} className="text-center mb-8">
-            <h1 className="text-3xl sm:text-4xl font-bold text-zinc-300 mb-2">Government Officer Registration</h1>
-            <p className="text-gray-300">Create your government officer account</p>
+            <h1 className="text-3xl sm:text-4xl font-bold text-zinc-300 mb-2">Corporate Contractor Registration</h1>
+            <p className="text-gray-300">Create your contractor account to access the portal</p>
           </motion.div>
 
           <motion.div variants={itemVariants}>
             <Card className="border border-gray-700 rounded-xl bg-gray-800/90 backdrop-blur-sm shadow-2xl">
               <CardHeader className="pb-2 pt-6">
-                <CardTitle className="text-xl sm:text-2xl font-bold text-white">Fill in your details</CardTitle>
+                <CardTitle className="text-xl sm:text-2xl font-bold text-white">
+                  Fill in your details
+                </CardTitle>
               </CardHeader>
               <CardContent className="pt-4 pb-8">
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* Full Name and Age */}
+                  {/* Name and Age */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="fullName" className="text-gray-200">Full Name</Label>
+                      <Label htmlFor="name" className="text-gray-200">Full Name</Label>
                       <Input
-                        id="fullName"
-                        name="fullName"
-                        value={formData.fullName}
+                        id="name"
+                        name="name"
+                        value={formData.name}
                         onChange={handleChange}
                         placeholder="Enter your full name"
                         className="bg-gray-900/70 border-gray-700 text-gray-300 placeholder-gray-500"
                       />
-                      {errors.fullName && <p className="text-red-400 text-sm">{errors.fullName}</p>}
+                      {errors.name && <p className="text-red-400 text-sm">{errors.name}</p>}
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="age" className="text-gray-200">Age</Label>
@@ -185,8 +193,20 @@ export default function GovernmentOfficerSignUp() {
                     </div>
                   </div>
 
-                  {/* Email and Username */}
+                  {/* Mobile and Email */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="mobile" className="text-gray-200">Mobile Number</Label>
+                      <Input
+                        id="mobile"
+                        name="mobile"
+                        value={formData.mobile}
+                        onChange={handleChange}
+                        placeholder="Enter your 10-digit mobile"
+                        className="bg-gray-900/70 border-gray-700 text-gray-300 placeholder-gray-500"
+                      />
+                      {errors.mobile && <p className="text-red-400 text-sm">{errors.mobile}</p>}
+                    </div>
                     <div className="space-y-2">
                       <Label htmlFor="email" className="text-gray-200">Email Address</Label>
                       <Input
@@ -200,6 +220,10 @@ export default function GovernmentOfficerSignUp() {
                       />
                       {errors.email && <p className="text-red-400 text-sm">{errors.email}</p>}
                     </div>
+                  </div>
+
+                  {/* Username and GST Number */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="username" className="text-gray-200">Username</Label>
                       <Input
@@ -211,6 +235,18 @@ export default function GovernmentOfficerSignUp() {
                         className="bg-gray-900/70 border-gray-700 text-gray-300 placeholder-gray-500"
                       />
                       {errors.username && <p className="text-red-400 text-sm">{errors.username}</p>}
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="gstNumber" className="text-gray-200">GST Number</Label>
+                      <Input
+                        id="gstNumber"
+                        name="gstNumber"
+                        value={formData.gstNumber}
+                        onChange={handleChange}
+                        placeholder="Enter your GST number"
+                        className="bg-gray-900/70 border-gray-700 text-gray-300 placeholder-gray-500"
+                      />
+                      {errors.gstNumber && <p className="text-red-400 text-sm">{errors.gstNumber}</p>}
                     </div>
                   </div>
 
@@ -244,32 +280,33 @@ export default function GovernmentOfficerSignUp() {
                     </div>
                   </div>
 
-                  {/* Employee ID and Department */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="employeeId" className="text-gray-200">Government Employee ID</Label>
-                      <Input
-                        id="employeeId"
-                        name="employeeId"
-                        value={formData.employeeId}
-                        onChange={handleChange}
-                        placeholder="Enter your employee ID"
-                        className="bg-gray-900/70 border-gray-700 text-gray-300 placeholder-gray-500"
-                      />
-                      {errors.employeeId && <p className="text-red-400 text-sm">{errors.employeeId}</p>}
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="departmentName" className="text-gray-200">Department Name</Label>
-                      <Input
-                        id="departmentName"
-                        name="departmentName"
-                        value={formData.departmentName}
-                        onChange={handleChange}
-                        placeholder="Enter your department"
-                        className="bg-gray-900/70 border-gray-700 text-gray-300 placeholder-gray-500"
-                      />
-                      {errors.departmentName && <p className="text-red-400 text-sm">{errors.departmentName}</p>}
-                    </div>
+                  {/* Company Name */}
+                  <div className="space-y-2">
+                    <Label htmlFor="companyName" className="text-gray-200">Company Name</Label>
+                    <Input
+                      id="companyName"
+                      name="companyName"
+                      value={formData.companyName}
+                      onChange={handleChange}
+                      placeholder="Enter your company name"
+                      className="bg-gray-900/70 border-gray-700 text-gray-300 placeholder-gray-500"
+                    />
+                    {errors.companyName && <p className="text-red-400 text-sm">{errors.companyName}</p>}
+                  </div>
+
+                  {/* Company Address */}
+                  <div className="space-y-2">
+                    <Label htmlFor="companyAddress" className="text-gray-200">Company Address</Label>
+                    <Textarea
+                      id="companyAddress"
+                      name="companyAddress"
+                      value={formData.companyAddress}
+                      onChange={handleChange}
+                      placeholder="Enter your company address"
+                      className="bg-gray-900/70 border-gray-700 text-gray-300 placeholder-gray-500"
+                      rows={3}
+                    />
+                    {errors.companyAddress && <p className="text-red-400 text-sm">{errors.companyAddress}</p>}
                   </div>
 
                   {/* Submit Button */}
@@ -281,15 +318,21 @@ export default function GovernmentOfficerSignUp() {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      {isSubmitting ? "Submitting Request..." : "Request Registration"}
+                      {isSubmitting ? 'Creating Account...' : 'Create Contractor Account'}
                     </MotionButton>
                   </div>
 
                   {/* Sign In Link */}
                   <div className="text-center mt-4">
+                  <p className="text-gray-400">
+                      In your an IndividualContractor?{' '}
+                      <Link href="/sign-up/contractor/individual-contractor" className="text-indigo-600 hover:text-blue-300">
+                        Sign up here
+                      </Link>
+                    </p>
                     <p className="text-gray-400">
-                      Already have an account?{" "}
-                      <Link href="/sign-in/government" className="text-blue-400 hover:text-blue-300">
+                      Already have an account?{' '}
+                      <Link href="/sign-in/contractor/corporate-contractor" className="text-blue-400 hover:text-blue-300">
                         Sign in instead
                       </Link>
                     </p>

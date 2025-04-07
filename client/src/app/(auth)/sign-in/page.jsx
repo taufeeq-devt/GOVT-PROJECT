@@ -152,7 +152,7 @@ export default function HomePage() {
                 </motion.div>
                 
                 <motion.div variants={itemVariants} whileHover={{ scale: 1.03 }}>
-                  <Link href="/sign-in/contractor" className="block w-full">
+                  <Link href="/sign-up/contractor/corporate-contractor" className="block w-full">
                     <MotionButton
                       variant="default"
                       className="w-full p-4 bg-gradient-to-r from-blue-600 to-indigo-700 text-base sm:text-lg flex items-center justify-center rounded-lg shadow-lg"
