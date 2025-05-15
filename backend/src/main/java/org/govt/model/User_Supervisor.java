@@ -10,10 +10,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-@Document(collection = "supplier")
+@Document(collection = "supervisors")
 @Getter
 @Setter
-public class User_Supplier implements UserDetails {
+public class User_Supervisor implements UserDetails {
     @Id
     private String id;
 
@@ -27,8 +27,9 @@ public class User_Supplier implements UserDetails {
     private String address;
     private String pincode;
     private boolean approved;
+    private String[] connected;
 
-    public User_Supplier(String name, String username, String password, String DOB, long phone, String email, String gst_number, String address, String pincode){
+    public User_Supervisor(String name, String username, String password, String DOB, String email, String gst_number, String address, String pincode){
         this.name=name;
         this.username=username;
         this.password=password;
