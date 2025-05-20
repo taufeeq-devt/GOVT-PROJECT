@@ -10,37 +10,29 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-@Document(collection = "supervisors")
+@Document (collection = "User_Supervisor")
 @Getter
 @Setter
 public class User_Supervisor implements UserDetails {
     @Id
     private String id;
 
-    private String name;
-    private String password;
-    private String username;
-    private String DOB;
-    private long phone;
-    private String email;
-    private String gst_number;
-    private String address;
-    private String pincode;
+    private String name,password,username,DOB,email,govt_Id,govt_department,pincode;
+    private String[] connect;
     private boolean approved;
-    private String[] connected;
 
-    public User_Supervisor(String name, String username, String password, String DOB, String email, String gst_number, String address, String pincode){
+    public User_Supervisor(String name,String username, String password,String DOB,String email,String govt_Id,String govt_department,String pincode){
         this.name=name;
         this.username=username;
         this.password=password;
         this.DOB=DOB;
-        this.phone=phone;
         this.email=email;
-        this.gst_number=gst_number;
-        this.address=address;
+        this.govt_Id=govt_Id;
+        this.govt_department=govt_department;
         this.pincode=pincode;
         this.approved=false;
     }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();

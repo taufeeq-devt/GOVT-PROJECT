@@ -2,6 +2,8 @@ package org.govt.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.govt.repository.UserSupervisorRepository;
+import org.govt.repository.UserSupplierRepository;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
@@ -28,6 +30,7 @@ public class User_Supplier implements UserDetails {
     private String pincode;
     private boolean approved;
 
+
     public User_Supplier(String name, String username, String password, String DOB, long phone, String email, String gst_number, String address, String pincode){
         this.name=name;
         this.username=username;
@@ -40,6 +43,7 @@ public class User_Supplier implements UserDetails {
         this.pincode=pincode;
         this.approved=false;
     }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
@@ -74,4 +78,5 @@ public class User_Supplier implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }

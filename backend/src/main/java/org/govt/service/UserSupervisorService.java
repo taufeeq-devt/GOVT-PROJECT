@@ -22,20 +22,19 @@ public class UserSupervisorService {
         this.password=new BCryptPasswordEncoder();
     }
 
-    public Register registerSupervisor(String name, String username, String password1, String DOB, String email, String govt_Id, String govt_department, String pincode){
+    public Register registerSupervisor(String name, String username, String password1, String DOB, String email, String govt_Id, String govt_department,String pincode){
         if(user.findByUsername(username)!=null){
-            return new Register("User Already Exists!!!!","");
+            return new Register("User Already Exists","");
         }
-        User_Supervisor user_supervisor=new User_Supervisor(name,username,password1,DOB,email,govt_Id,govt_department,pincode);
+        User_Supervisor userSupervisor=new User_Supervisor(name,username,password1,DOB,email,govt_Id,govt_department,pincode);
         String hash=password.encode(password1);
-        user_supervisor.setPassword(hash);
-        user.save(user_supervisor);
-        return new Register("Registered Successfully!!!", jwt.generateToken(username));
+        userSupervisor.setPassword(hash);
+        user.save(userSupervisor);
+        return new Register("User Registered Successfully!!",jwt.generateToken(username));
     }
 
-    public boolean authenticateSupervisor(String username,String pass){
-        User_Supervisor user1=user.findByUsername(username);
+    public Boolean authSupervisor(String username,String pass){
+        User_Supervisor user1=  user.findByUsername(username);
         return user1!=null && password.matches(pass,user1.getPassword());
     }
-
 }

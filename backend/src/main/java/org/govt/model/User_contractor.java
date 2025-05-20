@@ -74,4 +74,5 @@ public class User_contractor implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }

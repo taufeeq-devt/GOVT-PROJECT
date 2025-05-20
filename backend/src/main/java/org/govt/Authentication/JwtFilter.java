@@ -4,6 +4,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.govt.model.*;
 import org.govt.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,7 +29,7 @@ public class JwtFilter extends OncePerRequestFilter {
     private UserContractorRepository userContractor;
 
     @Autowired
-    private UserGovtRepository usergovt;
+    private UserGovtRepository userGovt;
 
     @Autowired
     private UserProjectManagerRepository userProject;
@@ -48,38 +49,45 @@ public class JwtFilter extends OncePerRequestFilter {
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
-            username = jwtUtil.extractUsername(token);
+            try {
+                username = jwtUtil.extractUsername(token);
+            } catch (Exception e) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                return;
+            }
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = null;
-
-            // Try to find the user in each repository
-            if (userSupplier.findByUsername(username)!=null) {
-                userDetails = userSupplier.findByUsername(username);
-            } else if (userContractor.findByUsername(username)!=null) {
-                userDetails = userContractor.findByUsername(username);
-            } else if (userProject.findByUsername(username)!=null) {
-                userDetails = userProject.findByUsername(username);
-            } else if (usergovt.findByUsername(username)!=null) {
-                userDetails = usergovt.findByUsername(username);
-            } else if (userSupervisor.findByUsername(username)!=null) {
-                userDetails = userSupervisor.findByUsername(username);
-            }
+            UserDetails userDetails = findUserByUsername(username);
 
             if (userDetails != null && jwtUtil.validateToken(token, userDetails)) {
                 UsernamePasswordAuthenticationToken authToken =
-                        new UsernamePasswordAuthenticationToken(
-                                userDetails, null, userDetails.getAuthorities());
+                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
-                authToken.setDetails(
-                        new WebAuthenticationDetailsSource().buildDetails(request));
-
+                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         }
 
         filterChain.doFilter(request, response);
     }
-}
 
+    private UserDetails findUserByUsername(String username) {
+        User_Supplier supplier = userSupplier.findByUsername(username);
+        if (supplier != null) return supplier;
+
+        User_contractor contractor = userContractor.findByUsername(username);
+        if (contractor != null) return contractor;
+
+        User_ProjectManager project = userProject.findByUsername(username);
+        if (project != null) return project;
+
+        User_govt govt = userGovt.findByUsername(username);
+        if (govt != null) return govt;
+
+        User_Supervisor supervisor = userSupervisor.findByUsername(username);
+        if (supervisor != null) return supervisor;
+
+        return null;
+    }
+}

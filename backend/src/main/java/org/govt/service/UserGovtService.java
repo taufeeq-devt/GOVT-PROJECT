@@ -5,12 +5,13 @@ import org.govt.login_message.Register;
 import org.govt.model.User_govt;
 import org.govt.repository.UserGovtRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserGovtService {
+public class UserGovtService{
     private final UserGovtRepository user;
     private final PasswordEncoder password;
 

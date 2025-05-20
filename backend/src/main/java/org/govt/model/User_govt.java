@@ -26,7 +26,7 @@ public class User_govt implements UserDetails {
     private String govt_department;
     private String pincode;
     private boolean approved;
-
+    private String[] connect;
 
     public User_govt(String name,String username, String password,String DOB,String email,String govt_Id,String govt_department,String pincode){
         this.name=name;
@@ -73,4 +73,5 @@ public class User_govt implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }

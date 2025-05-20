@@ -1,38 +1,38 @@
 package org.govt.Controller;
 
+
 import org.govt.Authentication.JwtUtil;
 import org.govt.login_message.Login;
 import org.govt.login_message.Register;
-import org.govt.model.User_govt;
 import org.govt.service.UserProjectManagerService;
+import org.govt.model.User_ProjectManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/auth")
 public class ProjectManagerAuth {
     private UserProjectManagerService user;
 
+    @Autowired
+    private JwtUtil jwt=new JwtUtil();
+
     public ProjectManagerAuth(UserProjectManagerService user){
         this.user=user;
     }
 
-    @Autowired
-    private JwtUtil jwt= new JwtUtil();
-
     @PostMapping("/register/projectmanager")
-    public Register register(@RequestBody User_govt user1){
+    public Register register(@RequestBody User_ProjectManager user1){
         return user.registerProjectManager(user1.getName(),user1.getUsername(),user1.getPassword(),user1.getDOB(),user1.getEmail(),user1.getGovt_Id(),user1.getGovt_department(),user1.getPincode());
     }
-
     @PostMapping("/login/projectmanager")
-    public Login login(@RequestBody User_govt user1){
-        if(user.authenticateProjectManager(user1.getUsername(),user1.getPassword())){
-            return new Login("LoggedIn Successfully!!!",jwt.generateToken(user1.getUsername()));
+    public Login login(@RequestBody User_ProjectManager user1){
+        if(user.authProjectManager(user1.getUsername(),user1.getPassword())){
+            return new Login("Logged In Successfully",jwt.generateToken(user1.getUsername()));
         }
         else{
-            return new Login("Invalid Credentials!!!","");
+            return new Login("Invalid Credentials","");
         }
     }
 }

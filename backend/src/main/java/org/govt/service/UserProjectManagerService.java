@@ -22,20 +22,19 @@ public class UserProjectManagerService {
         this.password=new BCryptPasswordEncoder();
     }
 
-    public Register registerProjectManager(String name, String username, String password1, String DOB, String email, String govt_Id, String govt_department, String pincode){
+    public Register registerProjectManager(String name, String username, String password1, String DOB, String email, String govt_Id, String govt_department,String pincode){
         if(user.findByUsername(username)!=null){
-            return new Register("User Already Exists!!!!","");
+            return new Register("User Already Exists","");
         }
-        User_ProjectManager user_projectManager=new User_ProjectManager(name,username,password1,DOB,email,govt_Id,govt_department,pincode);
+        User_ProjectManager userProjectManager=new User_ProjectManager(name,username,password1,DOB,email,govt_Id,govt_department,pincode);
         String hash=password.encode(password1);
-        user_projectManager.setPassword(hash);
-        user.save(user_projectManager);
-        return new Register("Registered Successfully!!!", jwt.generateToken(username));
+        userProjectManager.setPassword(hash);
+        user.save(userProjectManager);
+        return new Register("User Registered Successfully!!",jwt.generateToken(username));
     }
 
-    public boolean authenticateProjectManager(String username,String pass){
+    public boolean authProjectManager(String username,String pass){
         User_ProjectManager user1=user.findByUsername(username);
         return user1!=null && password.matches(pass,user1.getPassword());
     }
-
 }
