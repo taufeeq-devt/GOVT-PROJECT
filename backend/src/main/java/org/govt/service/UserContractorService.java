@@ -22,11 +22,11 @@ public class UserContractorService {
         this.password=new BCryptPasswordEncoder();
     }
 
-    public Register registerContractor(String name, String username, String password1, String DOB, long phone, String email, String gst_number, String address){
+    public Register registerContractor(String name, String username, String password1, String DOB, long phone, String email, String gst_number, String address,String pincode){
         if(user.findByUsername(username)!=null){
             return new Register("User already Exist!!","");
         }
-        User_contractor Contractor = new User_contractor(name,username,password1,DOB,phone,email,gst_number,address);
+        User_contractor Contractor = new User_contractor(name,username,password1,DOB,phone,email,gst_number,address,pincode);
         String hash=password.encode(password1);
         Contractor.setPassword(hash);
         user.save(Contractor);

@@ -22,11 +22,11 @@ public class UserSupplierService {
         this.password=new BCryptPasswordEncoder();
     }
 
-    public Register registerSupplier(String name, String username, String password1, String DOB, long phone, String email, String gst_number, String address){
+    public Register registerSupplier(String name, String username, String password1, String DOB, long phone, String email, String gst_number, String address,String pincode){
         if(user.findByUsername(username)!=null){
             return new Register("User Already Exists!!","");
         }
-        User_Supplier Supplier=new User_Supplier(name,username,password1,DOB,phone,email,gst_number,address);
+        User_Supplier Supplier=new User_Supplier(name,username,password1,DOB,phone,email,gst_number,address,pincode);
         String hash=password.encode(password1);
         Supplier.setPassword(hash);
         user.save(Supplier);

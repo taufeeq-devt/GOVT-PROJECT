@@ -25,7 +25,7 @@ public class SupplierAuth {
     public Register register(@RequestBody User_Supplier user1) {
         return user.registerSupplier(
                 user1.getName(), user1.getUsername(), user1.getPassword(), user1.getDOB(),
-                user1.getPhone(), user1.getEmail(), user1.getGst_number(), user1.getAddress()
+                user1.getPhone(), user1.getEmail(), user1.getGst_number(), user1.getAddress(),user1.getPincode()
         );
     }
 
