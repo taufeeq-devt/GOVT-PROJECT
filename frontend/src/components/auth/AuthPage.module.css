@@ -1,0 +1,18 @@
+/* Custom styles for AuthPage */
+
+.authCard {
+  /* Example: add a persistent blur effect */
+  backdrop-filter: blur(24px);
+  background: linear-gradient(135deg, rgba(16,22,36,0.9) 80%, rgba(29,233,182,0.1) 100%);
+  border-radius: 2rem;
+  box-shadow: 0 8px 32px 0 rgba(16,22,36,0.37);
+}
+
+.authButton {
+  font-weight: bold;
+  transition: color 0.2s;
+}
+
+.authButton:hover {
+  color: #ffd580;
+}
