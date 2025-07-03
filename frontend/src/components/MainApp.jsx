@@ -3,13 +3,6 @@ import Header from './common/Header';
 import Footer from './common/Footer';
 import LoadingScreen from './common/LoadingScreen';
 import LandingPage from './landing/LandingPage';
-import AuthWrapper from './auth/AuthWrapper';
-import SupplierLogin from './auth/SupplierLogin';
-import SupplierSignUp from './auth/SupplierSignUp';
-import GovtLogin from './auth/GovtLogin';
-import GovtSignUp from './auth/GovtSignUp';
-import ContractorLogin from './auth/ContractorLogin';
-import ContractorSignUp from './auth/ContractorSignUp';
 
 const MainApp = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -18,7 +11,6 @@ const MainApp = () => {
   const [formData, setFormData] = useState({ email: '', phone: '', message: '' });
   const [formErrors, setFormErrors] = useState({});
   const [loading, setLoading] = useState(true);
-  const [govtRole, setGovtRole] = useState(null);
 
   // Auto-advance slider
   useEffect(() => {
@@ -56,26 +48,10 @@ const MainApp = () => {
     setFormErrors({});
   };
 
-  // Navigation handlers
-  const goToSupplierLogin = () => { setCurrentPage('supplier-login'); };
-  const goToSupplierSignUp = () => { setCurrentPage('supplier-signup'); };
-  const goToGovtLogin = (role) => { setCurrentPage('govt-login'); setGovtRole(role); };
-  const goToGovtSignUp = (role) => { setCurrentPage('govt-signup'); setGovtRole(role); };
-  const goToContractorLogin = () => { setCurrentPage('contractor-login'); };
-  const goToContractorSignUp = () => { setCurrentPage('contractor-signup'); };
-  const goToLanding = () => {
-    setCurrentPage('landing');
-    setGovtRole(null);
-  };
-
-  // Government-specific navigation handlers that preserve the role
-  const goToGovtLoginFromSignup = () => { setCurrentPage('govt-login'); };
-  const goToGovtSignUpFromLogin = () => { setCurrentPage('govt-signup'); };
-
   if (loading) return <LoadingScreen />;
 
-  if (currentPage === 'landing') {
-    return (
+  return (
+    <div style={{ position: 'relative', minHeight: '100vh' }}>
       <LandingPage
         showGovtOptions={showGovtOptions}
         setShowGovtOptions={setShowGovtOptions}
@@ -87,64 +63,10 @@ const MainApp = () => {
         handleInputChange={handleInputChange}
         handleSubmit={handleSubmit}
         formErrors={formErrors}
-        goToSupplierLogin={goToSupplierLogin}
-        goToSupplierSignUp={goToSupplierSignUp}
-        goToContractorLogin={goToContractorLogin}
-        goToContractorSignUp={goToContractorSignUp}
-        goToGovtLogin={goToGovtLogin}
-        goToGovtSignUp={goToGovtSignUp}
+        goToAuth={() => {}}
       />
-    );
-  }
-
-  // Render individual auth pages
-  if (currentPage === 'supplier-login') {
-    return (
-      <AuthWrapper goBack={goToLanding}>
-        <SupplierLogin goBack={goToLanding} goToSignUp={goToSupplierSignUp} />
-      </AuthWrapper>
-    );
-  }
-  
-  if (currentPage === 'supplier-signup') {
-    return (
-      <AuthWrapper goBack={goToLanding}>
-        <SupplierSignUp goBack={goToLanding} goToLogin={goToSupplierLogin} />
-      </AuthWrapper>
-    );
-  }
-  
-  if (currentPage === 'govt-login') {
-    return (
-      <AuthWrapper goBack={goToLanding}>
-        <GovtLogin goBack={goToLanding} goToSignUp={goToGovtSignUpFromLogin} govtRole={govtRole} />
-      </AuthWrapper>
-    );
-  }
-  
-  if (currentPage === 'govt-signup') {
-    return (
-      <AuthWrapper goBack={goToLanding}>
-        <GovtSignUp goBack={goToLanding} goToLogin={goToGovtLoginFromSignup} govtRole={govtRole} />
-      </AuthWrapper>
-    );
-  }
-  
-  if (currentPage === 'contractor-login') {
-    return (
-      <AuthWrapper goBack={goToLanding}>
-        <ContractorLogin goBack={goToLanding} goToSignUp={goToContractorSignUp} />
-      </AuthWrapper>
-    );
-  }
-  
-  if (currentPage === 'contractor-signup') {
-    return (
-      <AuthWrapper goBack={goToLanding}>
-        <ContractorSignUp goBack={goToLanding} goToLogin={goToContractorLogin} />
-      </AuthWrapper>
-    );
-  }
+    </div>
+  );
 };
 
 export default MainApp; 
