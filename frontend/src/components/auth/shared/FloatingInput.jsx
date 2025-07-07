@@ -16,7 +16,6 @@ function FloatingInput({ icon: Icon, label, type = 'text', name, value, onChange
           onChange={onChange}
           required={required}
           className={`${styles.input} ${styles.textarea}`}
-          placeholder={label}
           autoComplete="off"
           {...props}
         />
@@ -29,7 +28,6 @@ function FloatingInput({ icon: Icon, label, type = 'text', name, value, onChange
           onChange={onChange}
           required={required}
           className={styles.input}
-          placeholder={label}
           autoComplete="off"
           {...props}
         />
