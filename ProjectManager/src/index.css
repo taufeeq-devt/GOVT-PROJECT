@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-background font-sans text-text;
+  min-height: 100vh;
+}
+
+.glass {
+  @apply bg-card backdrop-blur-md shadow-card rounded-xl border border-border;
+}
+
+/* Remove neon glows, use subtle card shadow instead */
+.glow-blue, .glow-violet, .glow-cyan {
+  box-shadow: 0 2px 12px 0 rgba(30,41,59,0.06);
+} 
