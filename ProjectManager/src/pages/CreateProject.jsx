@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import StepIndicator from '../components/createProject/StepIndicator';
 import BasicInfoForm from '../components/createProject/BasicInfoForm';
@@ -7,6 +7,7 @@ import RequirementsForm from '../components/createProject/RequirementsForm';
 import DocumentUploadForm from '../components/createProject/DocumentUploadForm';
 import OtherSettingsForm from '../components/createProject/OtherSettingsForm';
 import validateProjectForm from '../components/createProject/validateProjectForm';
+import { ProjectContext } from '../projectContext';
 
 export default function CreateProjectForm() {
   const [step, setStep] = useState(0);
@@ -31,6 +32,7 @@ export default function CreateProjectForm() {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const { addProject } = useContext(ProjectContext);
 
   const handleChange = (field, value) => {
     setData(d => ({ ...d, [field]: value }));
@@ -52,6 +54,22 @@ export default function CreateProjectForm() {
     setTimeout(() => {
       setLoading(false);
       setSuccess(true);
+      // Send new project to context
+      addProject({
+        id: Date.now(),
+        title: data.title,
+        status: 'On Bidding',
+        createdAt: new Date().toISOString(),
+        zone: data.zone,
+        contractor: '',
+        supervisor: '',
+        supplier: '',
+        budgetUsed: 0,
+        budgetTotal: Number(data.budget) || 0,
+        startDate: data.startDate,
+        deadline: 'TBD',
+        thumbnail: '',
+      });
       setStep(0);
       setData({
         title: '', description: '', zone: '', startDate: '', deadline: '', bidDeadline: '', budget: '', skills: [], licenses: [], materials: [], legal: null, blueprints: null, boq: null, safety: null, aiMatch: false, comments: '',

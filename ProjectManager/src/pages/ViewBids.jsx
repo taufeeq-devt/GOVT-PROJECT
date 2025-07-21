@@ -55,7 +55,7 @@ const SORT_OPTIONS = [
   { label: 'Experience Match %', value: 'match' },
 ];
 
-function BidsTable({ bids, onView, onAssign, assignedId, sort, setSort, filter, setFilter }) {
+export function BidsTable({ bids, onView, onAssign, assignedId, sort, setSort, filter, setFilter }) {
   return (
     <div className="bg-white rounded-xl shadow-card p-4 overflow-x-auto">
       <div className="flex flex-wrap gap-4 mb-4 items-center justify-between">
@@ -124,7 +124,7 @@ function BidsTable({ bids, onView, onAssign, assignedId, sort, setSort, filter, 
   );
 }
 
-function BidRow({ bid, onView, onAssign, assigned, disabled }) {
+export function BidRow({ bid, onView, onAssign, assigned, disabled }) {
   return (
     <tr className="border-b last:border-0">
       <td className="py-5 px-3 flex items-center gap-4 min-w-[200px]">
@@ -182,7 +182,7 @@ function BidRow({ bid, onView, onAssign, assigned, disabled }) {
   );
 }
 
-function BidModal({ open, bid, onClose }) {
+export function BidModal({ open, bid, onClose }) {
   if (!open || !bid) return null;
   return (
     <AnimatePresence>
@@ -241,7 +241,7 @@ function BidModal({ open, bid, onClose }) {
   );
 }
 
-function AssignModal({ open, contractor, onConfirm, onCancel }) {
+export function AssignModal({ open, contractor, onConfirm, onCancel }) {
   if (!open || !contractor) return null;
   return (
     <AnimatePresence>
