@@ -3,7 +3,7 @@ import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import LandingDashboardSupervisor from './LandingDashboardSupervisor';
 import AssignedProject from './AssignedProject';
-import SupplierVerification from './SupplierVerification';
+import SupplierMaterialVerificationPanel from './SupplierVerfication';
 import ReviewUpdates from './ReviewUpdates';
 import FundRequestsReview from './FundRequestsReview';
 import RequestHistory from './RequestHistory';
@@ -50,7 +50,7 @@ const SupervisorApp = () => {
       <Routes>
         <Route index element={<LandingDashboardSupervisor />} />
         <Route path="assignedproject" element={<AssignedProject />} />
-        <Route path="supplierverification" element={<SupplierVerification />} />
+        <Route path="supplierverification" element={<SupplierMaterialVerificationPanel />} />
         <Route path="reviewupdates" element={<ReviewUpdates />} />
         <Route path="fundrequestsreview" element={<FundRequestsReview />} />
         <Route path="requesthistory" element={<RequestHistory />} />

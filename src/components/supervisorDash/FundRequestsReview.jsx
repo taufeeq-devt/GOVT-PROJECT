@@ -40,16 +40,17 @@ const RequestFundReview = () => {
 
   
 
-  const sidebarItems = [
-           { id: 'overview', label: 'Overview', icon: Home, link: "/" },
-           { id: 'projects', label: 'Assigned Project', icon: FileText, link: "/assignedproject" },
-           { id: 'supplier', label: 'Supplier Verification', icon: VerifiedIcon, link: "/supplierVerification" },
-           { id: 'updates', label: 'Updates', icon: Activity, link: "/reviewUpdates" },
-           { id: 'fund', label: 'Fund Requests', icon: DollarSign, link: "/fundrequestsReview" },
-           { id: 'history', label: 'Request History', icon: ArchiveRestore, link: "/requestHistory" },
-           { id: 'communication', label: 'Communication', icon: Users, link: "/communication" },
-           { id: 'settings', label: 'Settings', icon: Settings, link: "/settingsSupervisor" },
-         ];
+ const sidebarItems = [
+     { id: 'overview', label: 'Overview', icon: Home, path: '', color: 'text-blue-600' },
+     { id: 'projects', label: 'Assigned Project', icon: FileText, path: 'assignedproject', color: 'text-green-600' },
+     { id: 'supplier', label: 'Supplier Verification', icon: VerifiedIcon, path: 'supplierverification', color: 'text-purple-600' },
+     { id: 'updates', label: 'Updates', icon: Activity, path: 'reviewupdates', color: 'text-amber-600' },
+     { id: 'fund', label: 'Fund Requests', icon: DollarSign, path: 'fundrequestsreview', color: 'text-cyan-600' },
+     { id: 'history', label: 'Request History', icon: ArchiveRestore, path: 'requesthistory', color: 'text-indigo-600' },
+     { id: 'communication', label: 'Communication', icon: Users, path: 'communication', color: 'text-pink-600' },
+     { id: 'settings', label: 'Settings', icon: Settings, path: 'settings', color: 'text-gray-600' },
+     
+   ];
 
   const toggleProfileDropdown = () => {
     setIsProfileOpen(!isProfileOpen);
@@ -104,7 +105,7 @@ const RequestFundReview = () => {
           {sidebarItems.map((item) => {
             const Icon = item.icon;
             return (
-              <Link to={item.link} key={item.id}>
+              <Link to={`/dashboard/supervisor/${item.path}`} key={item.id}>
                 <button
                   onClick={() => dispatch(setActiveTab(item.id))}
                   className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl mb-2 transition-all duration-300 ${

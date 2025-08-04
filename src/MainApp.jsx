@@ -8,7 +8,7 @@ import LandingPage from './components/landingPage/components/landing/LandingPage
 import ContractorDashboard from './components/contractorDash/App';
 import SupplierDashboard from './components/supplier/App';
 import ProjectManagerDashboard from './components/projectManager/App';
-import SupervisorDashboard from './components/supervisorDash/LandingDashboardSupervisor';
+import SupervisorApp from './components/supervisorDash/App';
 
 // Import the main App component for the landing page
 import App from './components/landingPage/components/App';
@@ -65,7 +65,7 @@ const MainApp = () => {
             path="/dashboard/supervisor/*" 
             element={
               <ProtectedRoute allowedRoles={[ROLES.SUPERVISOR]}>
-                <SupervisorDashboard />
+                <SupervisorApp />
               </ProtectedRoute>
             } 
           />
