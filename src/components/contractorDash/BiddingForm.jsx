@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import api from '../common/api';
+import api from '../../services/api';
 import {
   FileText,
   MapPin,
@@ -72,7 +72,7 @@ const BiddingFormCard = ({ projectId, show, onClose }) => {
  const handleSubmit = async () => {
   try {
     const response = await api.post('/bids', {
-      projectId: project.id, 
+      projectId: projectData.id, 
       contractorId: contractorId, 
       bidAmount: Number(formData.budget),
       timeline: formData.projectTime,

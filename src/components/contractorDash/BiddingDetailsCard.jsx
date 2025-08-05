@@ -19,7 +19,7 @@ import {
   Settings,
   Upload
 } from 'lucide-react';
-import api from '../common/api';
+import api from '../../services/api';
 
 const ProjectDetailsPopup = ({ isOpen, onClose, projectId,onInterested }) => {
   const dispatch = useDispatch();

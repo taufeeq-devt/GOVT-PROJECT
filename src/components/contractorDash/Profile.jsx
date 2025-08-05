@@ -36,6 +36,7 @@ const Profile = () => {
   const [formData, setFormData] = useState({
     Name: profile.Name,
     firmName: profile.firmName,
+    region:profile.region,
     gst: profile.gst,
     gstDocument: profile.gstDocument,
     tradeLicense: profile.tradeLicense,
