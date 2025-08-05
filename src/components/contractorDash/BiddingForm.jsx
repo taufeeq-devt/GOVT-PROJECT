@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import api from '../common/api';
 import {
   FileText,
   MapPin,
@@ -16,8 +17,9 @@ import {
   Send,
   X
 } from 'lucide-react';
+import { useSelector } from 'react-redux';
 
-const BiddingFormCard = ({ project, show, onClose }) => {
+const BiddingFormCard = ({ projectId, show, onClose }) => {
   const [formData, setFormData] = useState({
     projectTime: '',
     budget: '',
@@ -26,10 +28,30 @@ const BiddingFormCard = ({ project, show, onClose }) => {
     experience: '',
     supportingDocs: null
   });
+  const [projectData, setProjectData] = useState(null);
+  useEffect(() => {
+    const fetchProject = async () => {
+      if (!projectId) return;
 
+      setLoading(true);
+      try {
+        const response = await api.get(`/projects/${projectId}`);
+        setProjectData(response.data);
+      } catch (error) {
+        console.error('Error fetching project details:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (show) {
+      fetchProject();
+    }
+  }, [projectId, show]);
   if (!show) return null;
+  if(!projectData) return null;
 
-  const projectData = project;
+  
   console.log(projectData);
   
 
@@ -46,11 +68,26 @@ const BiddingFormCard = ({ project, show, onClose }) => {
       [field]: file
     }));
   };
+  const contractorId = useSelector(state => state.projectsDashboard.profile.id)
+ const handleSubmit = async () => {
+  try {
+    const response = await api.post('/bids', {
+      projectId: project.id, 
+      contractorId: contractorId, 
+      bidAmount: Number(formData.budget),
+      timeline: formData.projectTime,
+      workers: Number(formData.workers),
+      workPlan: formData.workPlan,
+      experience: formData.experience
+    });
 
-  const handleSubmit = () => {
-    console.log('Form submitted:', formData);
+    console.log('Bid submitted successfully:', response.data);
     onClose();
-  };
+  } catch (error) {
+    console.error('Error submitting bid:', error);
+    alert('Bid submission failed. Please check your input.');
+  }
+};
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">

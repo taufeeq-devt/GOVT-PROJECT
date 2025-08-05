@@ -2,8 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 import Dashboard from './LandingDashboardContractor';
 const initialState = {
   profile: {
+    id:"",
     Name: "",
     firmName: "",
+    region:"",
     gst: "",
     gstDocument: null,
     tradeLicense: "",

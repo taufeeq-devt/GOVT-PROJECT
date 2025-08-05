@@ -60,7 +60,7 @@ const AvailableProjects = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
-  const { viewProject, showViewDetails, showBiddingForm: isBiddingFormVisible } = useSelector(
+  const { viewProject, showViewDetails, showBiddingForm: isBiddingFormVisible,region } = useSelector(
     state => state.projectsDashboard
   );
   const dashboardMode = useSelector(state => state.projectsDashboard.dashMode)
@@ -188,20 +188,36 @@ const toggleProfileDropdown = () => {
     { label: '₹2,00,000+', value: '200000+' }
   ];
 
-  const filteredProjects = projects.filter(project => {
-    const matchesSearch = project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         project.category.toLowerCase().includes(searchTerm.toLowerCase());
+  const filteredProjects = projects
+  .filter(project => {
     
-    const matchesCategory = selectedCategory === 'all' || project.category === selectedCategory;
-    
-    const matchesBudget = selectedBudgetRange === 'all' || 
-      (selectedBudgetRange === '50000-100000' && project.budgetValue >= 50000 && project.budgetValue <= 100000) ||
-      (selectedBudgetRange === '100000-200000' && project.budgetValue >= 100000 && project.budgetValue <= 200000) ||
-      (selectedBudgetRange === '200000+' && project.budgetValue >= 200000);
-    
+    return project.region === region;
+  })
+  .filter(project => {
+   
+
+    const matchesSearch =
+      project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      project.category.toLowerCase().includes(searchTerm.toLowerCase());
+
+    const matchesCategory =
+      selectedCategory === 'all' || project.category === selectedCategory;
+
+    const matchesBudget =
+      selectedBudgetRange === 'all' ||
+      (selectedBudgetRange === '50000-100000' &&
+        project.budgetValue >= 50000 &&
+        project.budgetValue <= 100000) ||
+      (selectedBudgetRange === '100000-200000' &&
+        project.budgetValue >= 100000 &&
+        project.budgetValue <= 200000) ||
+      (selectedBudgetRange === '200000+' &&
+        project.budgetValue >= 200000);
+
     return matchesSearch && matchesCategory && matchesBudget;
   });
+;
 
   const getUrgencyColor = (urgency) => {
     switch (urgency) {
@@ -398,7 +414,7 @@ const toggleProfileDropdown = () => {
                   <button
                     className="flex-1 bg-slate-600/30 hover:bg-slate-600/50 text-slate-300 hover:text-white px-4 py-2 rounded-lg transition-colors flex items-center justify-center gap-2"
                     onClick={() => {
-                      dispatch(openViewDetails(project));
+                      dispatch(openViewDetails(project.id));
                     }}
                   >
                     <Eye className="w-4 h-4" />

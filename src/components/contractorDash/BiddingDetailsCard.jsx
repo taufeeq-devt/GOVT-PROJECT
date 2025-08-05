@@ -19,16 +19,51 @@ import {
   Settings,
   Upload
 } from 'lucide-react';
+import api from '../common/api';
 
-
-const ProjectDetailsPopup = ({ isOpen, onClose, project,onInterested }) => {
+const ProjectDetailsPopup = ({ isOpen, onClose, projectId,onInterested }) => {
   const dispatch = useDispatch();
+  const [projectData, setProjectData] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [activeDocumentTab, setActiveDocumentTab] = useState('legal');
     // const [showBiddingForm,setShowBiddingForm] = useState(false)
-  if (!isOpen) return null;
+    useEffect(() => {
+    const fetchProject = async () => {
+      if (!projectId) return;
 
+      setLoading(true);
+      try {
+        const response = await api.get(`/projects/${projectId}`);
+        setProjectData(response.data);
+      } catch (error) {
+        console.error('Error fetching project details:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (isOpen) {
+      fetchProject();
+    }
+  }, [projectId, isOpen]);
+
+  if (!isOpen) return null;
+  if (loading) {
+  return (
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center text-white text-lg">
+      Loading project details...
+    </div>
+  );
+  }
+  if (!projectData) {
+    return (
+      <div className="fixed inset-0 bg-black/50 flex items-center justify-center text-red-400 text-lg">
+        Failed to load project data.
+      </div>
+    );
+  }
   
-  const projectData = project
+  
   console.log(projectData);
   
 
