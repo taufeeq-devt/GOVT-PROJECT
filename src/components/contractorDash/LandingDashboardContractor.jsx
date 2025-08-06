@@ -48,7 +48,7 @@ const Dashboard = () => {
   const isBiddingFormVisible = useSelector(state => state.projectsDashboard.showBiddingForm);
   const viewProject = useSelector(state => state.projectsDashboard.viewProject);
   const myBids = useSelector(state => state.projectsDashboard.myBids);
-
+   
   const hasAcceptedBid = myBids.some(bid => bid.status === 'accepted');
   const dashboardMode = useSelector(state => state.projectsDashboard.dashMode);
 
@@ -70,14 +70,14 @@ const Dashboard = () => {
       navigate('', { replace: true });
     }
   }, [dashboardMode, location.pathname, navigate]);
-
+  const availableProjects = useSelector(state => state.projectsDashboard.availableProjects)
+  
   const biddingStats = [
-    { title: 'Active Bids', value: '3', icon: FileText, color: 'from-emerald-400 to-cyan-400' },
-    { title: 'Projects Available', value: '12', icon: Eye, color: 'from-yellow-400 to-orange-400' },
+    { title: 'Active Bids', value: myBids.length, icon: FileText, color: 'from-emerald-400 to-cyan-400' },
+    { title: 'Projects Available', value: availableProjects.length, icon: Eye, color: 'from-yellow-400 to-orange-400' },
     { title: 'Bid Success Rate', value: '75%', icon: TrendingUp, color: 'from-green-400 to-emerald-400' },
   ];
 
-  const availableProjects = useSelector(state => state.projectsDashboard.availableProjects)
   const sidebarItems = [
     { id: 'overview', label: 'Overview', icon: Home, link: "" },
     { id: 'availableprojects', label: 'Available Projects',hidden: dashboardMode === 'execution',  icon: FileText, link: "availableprojects" },

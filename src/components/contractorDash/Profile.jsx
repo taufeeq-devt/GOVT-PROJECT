@@ -29,8 +29,7 @@ import {
 const Profile = () => {
   const dispatch = useDispatch();
   const profile = useSelector(state => state.projectsDashboard.profile);
-//   const activeTab = useSelector(state => state.projectsDashboard.activeTab);
-//   const myBids = useSelector(state => state.projectsDashboard.myBids);
+
   const [isEditing, setIsEditing] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [formData, setFormData] = useState({

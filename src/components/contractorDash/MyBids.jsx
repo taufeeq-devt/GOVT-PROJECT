@@ -38,47 +38,7 @@ const MyBids = ({ onProjectSelect }) => {
       }
   }, [dashboardMode, navigate]);
   const [bids, setBids] = useState([
-    { 
-      id: 1, 
-      projectName: 'Municipal Infrastructure Upgrade', 
-      bidAmount: '₹142,000', 
-      status: 'pending', 
-      submittedDate: '2024-07-01',
-      description: 'Road and utilities upgrade in downtown area',
-      estimatedDuration: '3 months',
-      proposalDocument: 'proposal_001.pdf'
-    },
-    { 
-      id: 2, 
-      projectName: 'School Building Repair', 
-      bidAmount: '₹78,000', 
-      status: 'pending', 
-      submittedDate: '2024-06-28',
-      description: 'Structural repairs and safety improvements',
-      estimatedDuration: '2 months',
-      proposalDocument: 'proposal_002.pdf'
-    },
-    { 
-      id: 3, 
-      projectName: 'Public Library Renovation', 
-      bidAmount: '₹82,000', 
-      status: 'under_review', 
-      submittedDate: '2024-07-02',
-      description: 'Complete interior renovation and modernization',
-      estimatedDuration: '4 months',
-      proposalDocument: 'proposal_003.pdf'
-    },
-    { 
-      id: 4, 
-      projectName: 'Park Landscaping Project', 
-      bidAmount: '₹65,000', 
-      status: 'rejected', 
-      submittedDate: '2024-06-25',
-      description: 'Landscape design and installation for city park',
-      estimatedDuration: '6 weeks',
-      proposalDocument: 'proposal_004.pdf',
-      rejectionReason: 'Budget constraints - project awarded to lower bidder'
-    }
+   
   ]);
 
   const sidebarItems = [

@@ -76,108 +76,7 @@ const toggleProfileDropdown = () => {
   };
   // Minimal mock data - only 2 projects
   const projects = [
-    {
-      id: 1,
-      name: 'Municipal Infrastructure Upgrade',
-      description: 'Comprehensive road and utilities upgrade in the downtown area including water pipeline replacement and electrical infrastructure modernization.',
-      department: 'Public Works Department',
-      zone: 'Downtown District',
-      region: 'Central Mumbai',
-      category: 'Infrastructure',
-      deadline: '2024-09-15',
-      expectedStartDate: '2024-08-01',
-      bidSubmissionDeadline: '2024-07-20',
-      budget: '₹1,50,000',
-      budgetValue: 150000,
-      rating: 4.8,
-      contractorRequirements: [
-        'Valid Construction License (Class A)',
-        'Minimum 5 years experience in municipal projects',
-        'Safety certification from recognized authority'
-      ],
-      requiredMaterials: [
-        'High-grade concrete (Grade M25)',
-        'Steel reinforcement bars',
-        'Electrical cables and fixtures'
-      ],
-      estimatedQuantities: [
-        'Concrete: 500 cubic meters',
-        'Steel: 50 tons',
-        'Electrical cables: 2km'
-      ],
-      documents: {
-        legal: [
-          { name: 'Project Agreement Template', type: 'PDF', size: '2.4 MB' },
-          { name: 'Terms & Conditions', type: 'PDF', size: '1.8 MB' }
-        ],
-        blueprints: [
-          { name: 'Site Layout Plan', type: 'PDF', size: '5.6 MB' },
-          { name: 'Electrical Schematic', type: 'PDF', size: '4.2 MB' }
-        ],
-        boq: [
-          { name: 'Bill of Quantities - Main', type: 'XLSX', size: '890 KB' }
-        ],
-        safety: [
-          { name: 'Safety Protocols', type: 'PDF', size: '1.9 MB' }
-        ]
-      },
-      aiSupplierMatch: true,
-      comments: 'This project is part of the city\'s smart infrastructure initiative.',
-      bidsCount: 8,
-      timeLeft: '5 days',
-      status: 'bidding',
-      urgency: 'high'
-    },
-    {
-      id: 2,
-      name: 'Primary Healthcare Center Renovation',
-      description: 'Interior and exterior renovation of PHCs including HVAC systems, medical gas pipelines, and patient-friendly facilities.',
-      department: 'Health Infrastructure Division',
-      zone: 'Rural Block B',
-      region: 'North Karnataka',
-      category: 'Renovation',
-      deadline: '2024-08-30',
-      expectedStartDate: '2024-08-15',
-      bidSubmissionDeadline: '2024-07-25',
-      budget: '₹95,000',
-      budgetValue: 95000,
-      rating: 4.5,
-      contractorRequirements: [
-        'Class B Contractor License or higher',
-        'Previous healthcare facility work (min. 2 projects)',
-        'Sanitation & Safety Compliance Certification'
-      ],
-      requiredMaterials: [
-        'Non-toxic Paints',
-        'LED Fixtures',
-        'Medical-grade Piping'
-      ],
-      estimatedQuantities: [
-        'Paint: 3,000 sq. ft',
-        'LED Panels: 100 units',
-        'Gas Pipe: 400 meters'
-      ],
-      documents: {
-        legal: [
-          { name: 'PHC Renovation Contract', type: 'PDF', size: '2.0 MB' }
-        ],
-        blueprints: [
-          { name: 'Interior Refurb Plan', type: 'PDF', size: '3.1 MB' }
-        ],
-        boq: [
-          { name: 'Detailed BoQ', type: 'XLSX', size: '700 KB' }
-        ],
-        safety: [
-          { name: 'Hospital Safety Manual', type: 'PDF', size: '1.7 MB' }
-        ]
-      },
-      aiSupplierMatch: true,
-      comments: 'Essential healthcare project. Speed and hygiene compliance will influence contractor selection.',
-      bidsCount: 5,
-      timeLeft: '7 days',
-      status: 'bidding',
-      urgency: 'medium'
-    }
+    
   ];
 
   const categories = ['all', 'Infrastructure', 'Renovation', 'Construction', 'Maintenance'];
@@ -218,7 +117,8 @@ const toggleProfileDropdown = () => {
     return matchesSearch && matchesCategory && matchesBudget;
   });
 ;
-
+  const myBids = useSelector(state => state.projectsDashboard.myBids);
+  
   const getUrgencyColor = (urgency) => {
     switch (urgency) {
       case 'high': return 'text-red-400 bg-red-400/20';
@@ -274,7 +174,7 @@ const toggleProfileDropdown = () => {
               <p className="text-slate-400 text-sm">Available Projects</p>
             </div>
             
-            <div className="bg-slate-800/40 backdrop-blur-sm rounded-2xl p-6 border border-slate-700/50">
+            {/* <div className="bg-slate-800/40 backdrop-blur-sm rounded-2xl p-6 border border-slate-700/50">
               <div className="flex items-center justify-between mb-4">
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-yellow-400 to-orange-400 flex items-center justify-center">
                   <Eye className="w-6 h-6 text-white" />
@@ -283,7 +183,7 @@ const toggleProfileDropdown = () => {
               </div>
               <h3 className="text-2xl font-bold text-white mb-1">8</h3>
               <p className="text-slate-400 text-sm">Projects Viewed</p>
-            </div>
+            </div> */}
             
             <div className="bg-slate-800/40 backdrop-blur-sm rounded-2xl p-6 border border-slate-700/50">
               <div className="flex items-center justify-between mb-4">
@@ -292,7 +192,7 @@ const toggleProfileDropdown = () => {
                 </div>
                 <TrendingUp className="w-5 h-5 text-emerald-400" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-1">2</h3>
+              <h3 className="text-2xl font-bold text-white mb-1">{myBids.length}</h3>
               <p className="text-slate-400 text-sm">Active Bids</p>
             </div>
             

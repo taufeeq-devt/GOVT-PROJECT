@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect  } from 'react';
 import { useDispatch } from 'react-redux';
 import { closeViewDetails, showBiddingForm } from './dashboardSlice';
 import { 
@@ -48,13 +48,15 @@ const ProjectDetailsPopup = ({ isOpen, onClose, projectId,onInterested }) => {
   }, [projectId, isOpen]);
 
   if (!isOpen) return null;
-  if (loading) {
-  return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center text-white text-lg">
-      Loading project details...
-    </div>
-  );
-  }
+  // if (loading) {
+  // return (
+  //   <div className="fixed inset-0 bg-black/50 flex items-center justify-center text-white text-lg">
+  //     Loading project details...
+  //   </div>
+  // );
+  // }
+  console.log("projectdata",projectData);
+  
   if (!projectData) {
     return (
       <div className="fixed inset-0 bg-black/50 flex items-center justify-center text-red-400 text-lg">
