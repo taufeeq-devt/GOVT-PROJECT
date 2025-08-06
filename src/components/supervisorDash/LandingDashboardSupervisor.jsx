@@ -64,7 +64,7 @@ const SupervisorDashboard = () => {
   };
 
   const executionStats = [
-    { title: 'Allocated Project', value: '1', icon: CheckCircle, color: 'from-emerald-400 to-cyan-400' },
+    { title: 'Allocated Project', value: currentProject.length, icon: CheckCircle, color: 'from-emerald-400 to-cyan-400' },
     { title: 'Project Progress', value: useSelector(state => state.supervisorDashboard.allotedProject.progress) + "%", icon: TrendingUp, color: 'from-yellow-400 to-orange-400' },
     { title: 'Updates Submitted', value: useSelector(state => state.supervisorDashboard.submittedUpdates).length, icon: FileText, color: 'from-green-400 to-emerald-400' },
     { title: 'Days Remaining', value: (Math.ceil((parseDate(useSelector(state => state.supervisorDashboard.allotedProject.endDate)) - parseDate(useSelector(state => state.supervisorDashboard.allotedProject.startDate))) / (1000 * 60 * 60 * 24))), icon: Clock, color: 'from-purple-400 to-pink-400' },
