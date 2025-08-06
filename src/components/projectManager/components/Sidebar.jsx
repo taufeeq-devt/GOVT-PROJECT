@@ -22,15 +22,14 @@ import { Link, useLocation } from "react-router-dom";
 const menu = [
   { name: "Dashboard Home", icon: <Home size={20} />, id: "", color: "text-blue-600" },
   { name: "Create Project", icon: <PlusSquare size={20} />, id: "create-project", color: "text-green-600" },
-  { name: "All My Projects", icon: <FolderOpen size={20} />, id: "all-projects", color: "text-purple-600" },
-  { name: "Project Monitoring", icon: <BarChart2 size={20} />, id: "project-monitoring", color: "text-amber-600" },
+  { name: "All My Projects", icon: <FolderOpen size={20} />, id: "monitor", color: "text-amber-600" },
   { name: "Fund Requests", icon: <IndianRupee size={20} />, id: "fund-requests", color: "text-cyan-600" },
-  { name: "Documents & Blueprints", icon: <FileText size={20} />, id: "documents-blueprints", color: "text-indigo-600" },
-  { name: "Internal Chat", icon: <MessageCircle size={20} />, id: "internal-chat", color: "text-pink-600" },
+  { name: "Documents & Blueprints", icon: <FileText size={20} />, id: "documents", color: "text-indigo-600" },
+  { name: "Internal Chat", icon: <MessageCircle size={20} />, id: "chat", color: "text-pink-600" },
   { name: "View Bids", icon: <Gavel size={20} />, id: "view-bids", color: "text-red-600" },
-  { name: "Assign Supervisor", icon: <Users size={20} />, id: "assign-supervisor-supplier", color: "text-teal-600" },
+  { name: "Assign Supervisor", icon: <Users size={20} />, id: "assign-team", color: "text-teal-600" },
   { name: "Product Catalog", icon: <Box size={20} />, id: "product-catalog", color: "text-orange-600" },
-  { name: "Export Reports", icon: <FileDown size={20} />, id: "export-reports", color: "text-yellow-600" },
+  { name: "Export Reports", icon: <FileDown size={20} />, id: "reports", color: "text-yellow-600" },
 ];
 
 export default function Sidebar() {

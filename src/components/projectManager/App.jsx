@@ -15,7 +15,7 @@ import InternalChat from './pages/InternalChat';
 import ExportReports from './pages/ExportReports';
 import ProfilePage from './pages/ProfilePage';
 import SettingsPage from './pages/SettingsPage';
-
+import ProductCatalog from './pages/ProductCatalog';
 // import services and context same as before...
 
 const ProjectManagerDashboard = () => {
@@ -50,6 +50,7 @@ const ProjectManagerDashboard = () => {
           <Route path="reports" element={<ExportReports />} />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="settings" element={<SettingsPage />} />
+          <Route path="product-catalog" element={<ProductCatalog />} />
 
           
         </Route>
