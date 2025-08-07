@@ -1,4 +1,18 @@
 import api from './api';
+import Cookies from 'js-cookie';
+
+// Cookie options
+const cookieOptions = {
+  expires: 7, 
+  secure: true,
+  sameSite: 'strict',
+};
+
+// Set token and role in cookie
+const setAuthCookies = (token, role) => {
+  Cookies.set('token', token, cookieOptions);
+  Cookies.set('userRole', role, cookieOptions);
+};
 
 // Register Government Admin
 export const registerGovtAdmin = async (userData) => {
@@ -15,8 +29,7 @@ export const loginGovtAdmin = async (credentials) => {
   try {
     const response = await api.post('/auth/login/govt', credentials);
     if (response.data.token) {
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('userRole', 'govt_admin');
+      setAuthCookies(response.data.token, 'govt_admin');
     }
     return response.data;
   } catch (error) {
@@ -39,8 +52,7 @@ export const loginContractor = async (credentials) => {
   try {
     const response = await api.post('/auth/login/contractor', credentials);
     if (response.data.token) {
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('userRole', 'contractor');
+      setAuthCookies(response.data.token, 'contractor');
     }
     return response.data;
   } catch (error) {
@@ -50,16 +62,18 @@ export const loginContractor = async (credentials) => {
 
 // Logout
 export const logout = () => {
-  localStorage.removeItem('token');
-  localStorage.removeItem('userRole');
+  Cookies.remove('token');
+  Cookies.remove('userRole');
+  sessionStorage.clear();
+  // window.location.href = '/login'; 
 };
 
 // Get current user role
 export const getCurrentUserRole = () => {
-  return localStorage.getItem('userRole');
+  return Cookies.get('userRole');
 };
 
 // Check if user is authenticated
 export const isAuthenticated = () => {
-  return !!localStorage.getItem('token');
+  return !!Cookies.get('token');
 };

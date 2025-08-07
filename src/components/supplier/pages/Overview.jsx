@@ -33,19 +33,19 @@ const stats = [
 ];
 
 const project = {
-  name: "Municipal Infrastructure Upgrade",
-  materials: ["Cement", "Steel", "Bricks"],
-  lastDelivery: "12 May 2025",
-  progress: 60,
-  status: "On Track",
-  statusColor: "bg-emerald-400",
+  // name: "Municipal Infrastructure Upgrade",
+  // materials: ["Cement", "Steel", "Bricks"],
+  // lastDelivery: "12 May 2025",
+  // progress: 60,
+  // status: "On Track",
+  // statusColor: "bg-emerald-400",
 };
 
 const upcomingDelivery = {
-  project: "Smart City Roadworks",
-  due: "18 May 2025",
-  items: ["Bitumen", "Concrete Pipes"],
-  countdown: "3 days left",
+  // project: "Smart City Roadworks",
+  // due: "18 May 2025",
+  // items: ["Bitumen", "Concrete Pipes"],
+  // countdown: "3 days left",
 };
 
 export default function Overview() {
