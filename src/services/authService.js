@@ -1,14 +1,14 @@
 import api from './api';
 import Cookies from 'js-cookie';
 
-// Cookie options
+
 const cookieOptions = {
   expires: 7, 
   secure: true,
   sameSite: 'strict',
 };
 
-// Set token and role in cookie
+
 const setAuthCookies = (token, role) => {
   Cookies.set('token', token, cookieOptions);
   Cookies.set('userRole', role, cookieOptions);
